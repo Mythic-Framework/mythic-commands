@@ -34,6 +34,31 @@ function RegisterChatCommands()
 		help = "Clear The Chat",
 	})
 
+	Chat:RegisterCommand("sid", function(source, args, rawCommand)
+		local player = Fetch:Source(source)
+
+		if not player then
+			Chat.Send.System:Single(source, "Could not find your player data")
+			return
+		end
+
+		local char = player:GetData("Character")
+		if not char then
+			Chat.Send.System:Single(source, "Could not find your character data")
+			return
+		end
+
+		local sid = char:GetData("SID")
+		if not sid then
+			Chat.Send.System:Single(source, "Could not find your State ID")
+			return
+		end
+
+		Chat.Send.System:Single(source, ("Your State ID is: %s"):format(sid))
+	end, {
+		help = "Check your State ID",
+	}, 0)
+
 	Chat:RegisterCommand("ooc", function(source, args, rawCommand)
 		if #rawCommand:sub(4) > 0 then
 			Chat.Send:OOC(source, rawCommand:sub(4))
