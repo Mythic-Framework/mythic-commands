@@ -7,6 +7,7 @@ function RetrieveComponents()
 	Sounds = exports["mythic-base"]:FetchComponent("Sounds")
 	Execute = exports["mythic-base"]:FetchComponent("Execute")
 	Waitlist = exports["mythic-base"]:FetchComponent("WaitList")
+	Version = exports["mythic-base"]:FetchComponent("Version")
 	RegisterChatCommands()
 end
 
@@ -18,12 +19,15 @@ AddEventHandler("Core:Shared:Ready", function()
 		"Sounds",
 		"Execute",
 		"WaitList",
+		"Version",
 	}, function(error)
 		if #error > 0 then
 			return
 		end -- Do something to handle if not all dependencies loaded
 		RetrieveComponents()
 		RegisterCallbacks()
+
+		Version:Check('Mythic-Framework/Mythic-VersionCheckers', GetCurrentResourceName())
 	end)
 end)
 
